@@ -1,0 +1,3 @@
+<div>
+    {!! $item['content'] !!}
+</div>

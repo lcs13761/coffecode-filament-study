@@ -95,73 +95,42 @@
                 <!-- Content -->
                 <div class="prose prose-lg max-w-none">
                     <div class="text-gray-700 leading-relaxed">
-                        {!! $post->content_html !!}
+                        @foreach ($post->content as $index => $content)
+                            @switch($content['type'])
+                                @case('heading')
+                                    @include('livewire.components.heading', ['item' => $content['data']])
+                                @break
+
+                                @case('paragraph')
+                                    @include('livewire.components.paragraph', ['item' => $content['data']])
+                                @break
+
+                                @case('image')
+                                    @include('livewire.components.image', ['item' => $content['data']])
+                                @break
+
+                                @case('gallery')
+                                    @include('livewire.components.gallery', ['item' => $content['data']])
+                                @break
+
+                                @case('video')
+                                    @include('livewire.components.video', ['item' => $content['data']])
+                                @break
+
+                                @case('code')
+                                    @include('livewire.components.code', ['item' => $content['data']])
+                                @break
+
+                                @case('quote')
+                                    @include('livewire.components.quote', ['item' => $content['data']])
+                                @break
+                                @case('separator')
+                                    @include('livewire.components.separator', ['item' => $content['data']])
+                                    @break
+                            @endswitch
+                        @endforeach
                     </div>
                 </div>
-
-                @if ($post->getMedia('gallery')->count() > 0)
-                    <div class="mt-12">
-                        <h3 class="text-2xl font-semibold text-gray-800 mb-6">Galeria</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            @foreach ($post->getMedia('gallery') as $media)
-                                <div
-                                    class="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                    <img src="{{ $media->getUrl() }}" alt="{{ $media->name }}"
-                                        class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer"
-                                        onclick="openLightbox('{{ $media->getUrl() }}', '{{ $media->name }}')">
-
-                                    <!-- Overlay -->
-                                    <div
-                                        class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <!-- Lightbox JavaScript -->
-                    <script>
-                        function openLightbox(src, caption) {
-                            const lightbox = document.getElementById('lightbox');
-                            const image = document.getElementById('lightbox-image');
-                            const captionEl = document.getElementById('lightbox-caption');
-
-                            image.src = src;
-                            image.alt = caption;
-                            captionEl.textContent = caption;
-
-                            lightbox.classList.remove('hidden');
-                            lightbox.classList.add('flex');
-                            document.body.style.overflow = 'hidden';
-                        }
-
-                        function closeLightbox() {
-                            const lightbox = document.getElementById('lightbox');
-                            lightbox.classList.add('hidden');
-                            lightbox.classList.remove('flex');
-                            document.body.style.overflow = 'auto';
-                        }
-
-                        // Close lightbox when clicking outside the image
-                        document.getElementById('lightbox').addEventListener('click', function(e) {
-                            if (e.target === this) {
-                                closeLightbox();
-                            }
-                        });
-
-                        // Close lightbox with ESC key
-                        document.addEventListener('keydown', function(e) {
-                            if (e.key === 'Escape') {
-                                closeLightbox();
-                            }
-                        });
-                    </script>
-                @endif
 
                 <!-- Tags -->
                 @if ($post->tags->count() > 0)
@@ -295,8 +264,8 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
-                                            <span>{{ ceil(str_word_count(strip_tags($relatedPost->content)) / 200) }}
-                                                min</span>
+                                            {{--                                            <span>{{ ceil(str_word_count(strip_tags($relatedPost->content)) / 200) }} --}}
+                                            {{--                                                min</span> --}}
                                         </div>
                                     </div>
 
@@ -332,50 +301,4 @@
             </div>
         </section>
     @endif
-
-    <!-- Newsletter Section -->
-    <section class="bg-gradient-cafe">
-        <div class="container-custom py-16">
-            <div class="max-w-4xl mx-auto text-center">
-                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12">
-                    <h2 class="text-3xl font-bold text-white mb-4">
-                        Gostou do conteúdo?
-                    </h2>
-                    <p class="text-xl text-white/90 mb-8">
-                        Receba nossas dicas sobre controle financeiro diretamente no seu email
-                    </p>
-
-                    <form class="max-w-md mx-auto">
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <input type="email" placeholder="Seu melhor email"
-                                class="flex-1 px-4 py-3 rounded-lg border-0 focus:ring-2 focus:ring-white/50 focus:outline-none">
-                            <button type="submit"
-                                class="px-6 py-3 bg-white text-cafe-600 rounded-lg hover:bg-gray-100 transition-colors font-medium">
-                                Inscrever-se
-                            </button>
-                        </div>
-                    </form>
-
-                    <p class="text-sm text-white/70 mt-4">
-                        Sem spam. Apenas conteúdo de qualidade sobre finanças pessoais.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Back to Blog -->
-    <section class="bg-white border-t">
-        <div class="container-custom py-8">
-            <div class="text-center">
-                <a href="{{ route('web.blog') }}"
-                    class="inline-flex items-center text-gray-600 hover:text-cafe-600 transition-colors">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                    Voltar para o Blog
-                </a>
-            </div>
-        </div>
-    </section>
 </div>

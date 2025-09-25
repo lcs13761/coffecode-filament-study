@@ -24,27 +24,27 @@ class BlogPage extends Component
         'sortBy' => ['except' => 'latest'],
     ];
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingSelectedCategory()
+    public function updatingSelectedCategory(): void
     {
         $this->resetPage();
     }
 
-    public function updatingSelectedTag()
+    public function updatingSelectedTag(): void
     {
         $this->resetPage();
     }
 
-    public function updatingSortBy()
+    public function updatingSortBy(): void
     {
         $this->resetPage();
     }
 
-    public function clearFilters()
+    public function clearFilters(): void
     {
         $this->search = '';
         $this->selectedCategory = '';
@@ -53,7 +53,7 @@ class BlogPage extends Component
         $this->resetPage();
     }
 
-    public function selectTag($tagId)
+    public function selectTag($tagId): void
     {
         $this->selectedTag = $tagId;
         $this->resetPage();
@@ -61,7 +61,7 @@ class BlogPage extends Component
 
     public function render()
     {
-        $query = Post::with(['user', 'category', 'tags', 'media'])
+        $query = Post::with(['user', 'category', 'tags'])
             ->where('status', 'published')
             ->where('published_at', '<=', now());
 
@@ -69,8 +69,7 @@ class BlogPage extends Component
         if ($this->search) {
             $query->where(function ($q) {
                 $q->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('excerpt', 'like', '%' . $this->search . '%')
-                    ->orWhere('content', 'like', '%' . $this->search . '%');
+                    ->orWhere('excerpt', 'like', '%' . $this->search . '%');
             });
         }
 
@@ -107,7 +106,7 @@ class BlogPage extends Component
             ->take(10)
             ->get();
 
-        $featuredPosts = Post::with(['user', 'category', 'media'])
+        $featuredPosts = Post::with(['user', 'category'])
             ->where('status', 'published')
             ->where('published_at', '<=', now())
             ->orderBy('views_count', 'desc')

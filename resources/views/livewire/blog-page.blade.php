@@ -28,8 +28,8 @@
                             <a href="{{ route('web.blog.post', $post->slug) }}" wire:navigate>
                                 <div
                                     class="relative overflow-hidden rounded-xl shadow-lg group-hover:shadow-2xl transition-all duration-300">
-                                    @if ($post->getFirstMediaUrl('featured_image'))
-                                        <img src="{{ $post->getFirstMediaUrl('featured_image') }}"
+                                    @if ($post->featured_image)
+                                        <img src="{{ asset('storage/' . $post->featured_image) }}"
                                             alt="{{ $post->title }}"
                                             class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
                                     @else
@@ -155,8 +155,8 @@
                         <div class="space-y-4">
                             @foreach ($featuredPosts->take(5) as $post)
                                 <div class="flex space-x-3">
-                                    @if ($post->getFirstMediaUrl('featured_image'))
-                                        <img src="{{ $post->getFirstMediaUrl('featured_image') }}"
+                                    @if ($post->featured_image)
+                                        <img src="{{ asset('storage/' . $post->featured_image) }}"
                                             alt="{{ $post->title }}"
                                             class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                                     @else
@@ -261,8 +261,8 @@
                             <article
                                 class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
                                 <a href="{{ route('web.blog.post', $post->slug) }}" class="block" wire:navigate>
-                                    @if ($post->getFirstMediaUrl('featured_image'))
-                                        <img src="{{ $post->getFirstMediaUrl('featured_image') }}"
+                                    @if ($post->featured_image)
+                                        <img src="{{ asset('storage/' . $post->featured_image) }}"
                                             alt="{{ $post->title }}"
                                             class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
                                     @else

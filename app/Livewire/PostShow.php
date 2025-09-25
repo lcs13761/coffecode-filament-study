@@ -25,18 +25,18 @@ class PostShow extends Component
     {
         // Increment view count
         $post->increment('views_count');
-        
+
         // Load relationships
-        $post->load(['category', 'tags', 'user', 'media']);
+        $post->load(['category', 'tags', 'user']);
     }
 
-    public function toggleCommentForm()
+    public function toggleCommentForm(): void
     {
         $this->showCommentForm = !$this->showCommentForm;
         $this->replyTo = null;
     }
 
-    public function replyToComment($commentId)
+    public function replyToComment($commentId): void
     {
         $this->replyTo = $commentId;
         $this->showCommentForm = true;
@@ -55,7 +55,7 @@ class PostShow extends Component
             'user_id' => Auth::id(),
             'parent_id' => $this->replyTo,
             'content' => $this->comment,
-            'is_approved' => true, // Auto-approve for now
+            'status' => 'approved', // Auto-approve for now
         ]);
 
         $this->comment = '';

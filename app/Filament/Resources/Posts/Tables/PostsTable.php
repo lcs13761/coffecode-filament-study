@@ -28,6 +28,7 @@ class PostsTable
             //
             Tables\Columns\ImageColumn::make('featured_image')
                 ->label('Imagem')
+                ->visibility('public')
                 ->imageSize(60),
 
             Tables\Columns\TextColumn::make('title')
