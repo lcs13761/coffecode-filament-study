@@ -1,7 +1,6 @@
 <?php
 
 use App\Livewire\About;
-use App\Livewire\Blog;
 use App\Livewire\BlogPage;
 use App\Livewire\Home;
 use App\Livewire\PostShow;

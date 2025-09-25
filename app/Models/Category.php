@@ -9,8 +9,6 @@ use Illuminate\Support\Str;
 
 class Category extends Model
 {
-    use HasFactory;
-
       protected $fillable = [
         'name',
         'slug',
@@ -23,7 +21,7 @@ class Category extends Model
         'is_active' => 'boolean',
     ];
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
