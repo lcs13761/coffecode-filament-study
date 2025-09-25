@@ -58,6 +58,9 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->authMiddleware([
+                Authenticate::class,
+            ])
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
                     ->gridColumns([
@@ -76,9 +79,6 @@ class AdminPanelProvider extends PanelProvider
                         'sm' => 2,
                     ]),
             ])
-            ->spa()
-            ->authMiddleware([
-                Authenticate::class,
-            ]);
+            ->spa();
     }
 }

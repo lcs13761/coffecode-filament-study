@@ -1,23 +1,27 @@
 <?php
 
-namespace App\Filament\Resources\UserResource\Table;
+namespace App\Filament\Resources\User\Tables;
 
 use Exception;
-use Filament\Tables;
-use Filament\Tables\Actions\ActionGroup;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
-class UserTable
+class UsersTable
 {
     /**
      * @throws Exception
      */
-    public static function make(Tables\Table $table): Tables\Table
+    public static function configure(Table $table): Table
     {
         return $table
             ->modelLabel(__('locale.labels.user'))
@@ -76,18 +80,18 @@ class UserTable
                     ->multiple()
                     ->label(__('locale.labels.roles')),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
-                    Tables\Actions\EditAction::make()
+                    EditAction::make()
                         ->modalWidth('md')
                         ->slideOver(),
 
-                    Tables\Actions\DeleteAction::make(),
+                    DeleteAction::make(),
                 ]),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

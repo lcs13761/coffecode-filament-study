@@ -1,22 +1,25 @@
 <?php
 
-namespace App\Filament\Resources\UserResource\Form;
+namespace App\Filament\Resources\User\Schemas;
 
 use App\Models\Role;
-use Filament\Forms\Components\Section;
+use Exception;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserForm
 {
-    public static function make(Form $form): Form
+    /**
+     * @throws Exception
+     */
+    public static function configure(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema->components([
                 Section::make()->schema([
                     //name
                     TextInput::make('name')

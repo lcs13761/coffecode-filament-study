@@ -1,3 +1,188 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@layer base {
+    :root {
+        --cafe-50: #f0fdf4;
+        --cafe-100: #dcfce7;
+        --cafe-200: #bbf7d0;
+        --cafe-300: #86efac;
+        --cafe-400: #42E695;
+        --cafe-500: #22c55e;
+        --cafe-600: #16a34a;
+        --cafe-700: #15803d;
+        --cafe-800: #166534;
+        --cafe-900: #14532d;
+
+        --cafe-blue-50: #f0f9ff;
+        --cafe-blue-100: #e0f2fe;
+        --cafe-blue-200: #bae6fd;
+        --cafe-blue-300: #7dd3fc;
+        --cafe-blue-400: #3BB2B8;
+        --cafe-blue-500: #0ea5e9;
+        --cafe-blue-600: #0284c7;
+        --cafe-blue-700: #0369a1;
+        --cafe-blue-800: #075985;
+        --cafe-blue-900: #0c4a6e;
+    }
+}
+
+@layer utilities {
+    /* Cafe Colors */
+    .text-cafe-50 { color: var(--cafe-50); }
+    .text-cafe-100 { color: var(--cafe-100); }
+    .text-cafe-200 { color: var(--cafe-200); }
+    .text-cafe-300 { color: var(--cafe-300); }
+    .text-cafe-400 { color: var(--cafe-400); }
+    .text-cafe-500 { color: var(--cafe-500); }
+    .text-cafe-600 { color: var(--cafe-600); }
+    .text-cafe-700 { color: var(--cafe-700); }
+    .text-cafe-800 { color: var(--cafe-800); }
+    .text-cafe-900 { color: var(--cafe-900); }
+
+    .bg-cafe-50 { background-color: var(--cafe-50); }
+    .bg-cafe-100 { background-color: var(--cafe-100); }
+    .bg-cafe-200 { background-color: var(--cafe-200); }
+    .bg-cafe-300 { background-color: var(--cafe-300); }
+    .bg-cafe-400 { background-color: var(--cafe-400); }
+    .bg-cafe-500 { background-color: var(--cafe-500); }
+    .bg-cafe-600 { background-color: var(--cafe-600); }
+    .bg-cafe-700 { background-color: var(--cafe-700); }
+    .bg-cafe-800 { background-color: var(--cafe-800); }
+    .bg-cafe-900 { background-color: var(--cafe-900); }
+
+    .hover\:text-cafe-600:hover { color: var(--cafe-600); }
+    .hover\:bg-cafe-50:hover { background-color: var(--cafe-50); }
+
+    /* Focus states */
+    .focus\:ring-cafe-500:focus {
+        --tw-ring-color: var(--cafe-500);
+    }
+
+    /* Gradients */
+    .bg-gradient-cafe {
+        background: linear-gradient(135deg, var(--cafe-400) 0%, var(--cafe-blue-400) 50%, var(--cafe-400) 100%);
+    }
+}
+
+@layer components {
+    /* Container Custom */
+    .container-custom {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    /* Header Navigation Styles */
+    .nav-link {
+        @apply relative px-3 py-2 text-gray-700 font-medium transition-all duration-200;
+        color: #374151;
+    }
+
+    .nav-link:hover {
+        color: var(--cafe-600);
+    }
+
+    .nav-link.active {
+        color: var(--cafe-600);
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--cafe-400), var(--cafe-blue-400));
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        width: 100%;
+    }
+
+    .mobile-nav-link {
+        @apply block px-3 py-2 text-gray-700 font-medium transition-colors duration-200 rounded-md;
+    }
+
+    .mobile-nav-link:hover {
+        color: var(--cafe-600);
+        background-color: #f9fafb;
+    }
+
+    .mobile-nav-link.active {
+        color: var(--cafe-600);
+        background-color: var(--cafe-50);
+    }
+
+    .mobile-menu-btn {
+        @apply inline-flex items-center justify-center p-2 rounded-md text-gray-400 transition-all duration-200;
+    }
+
+    .mobile-menu-btn:hover {
+        @apply text-gray-500 bg-gray-100;
+    }
+
+    .mobile-menu-btn:focus {
+        @apply outline-none ring-2 ring-offset-2;
+        --tw-ring-color: var(--cafe-500);
+    }
+
+    .btn-primary-sm {
+        @apply inline-block px-4 py-2 text-sm font-semibold text-white rounded-lg shadow-md transition-all duration-300;
+        background: linear-gradient(135deg, var(--cafe-400) 0%, var(--cafe-blue-400) 50%, var(--cafe-400) 100%);
+        background-size: 200% 200%;
+    }
+
+    .btn-primary-sm:hover {
+        @apply shadow-lg;
+        transform: translateY(-1px);
+        background-position: right center;
+    }
+}
+
+/* Mobile menu animation */
+.mobile-menu {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Backdrop blur support for older browsers */
+@supports not (backdrop-filter: blur(12px)) {
+    nav {
+        background-color: rgba(255, 255, 255, 0.95);
+    }
+}
+
+.container-custom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+
+.footer-link {
+    @apply block text-sm text-gray-300 hover:text-white transition-colors duration-200;
+}
+
+.social-link {
+    @apply flex items-center space-x-3 text-sm text-gray-300 hover:text-white transition-colors duration-200;
+}
+
+@media (max-width: 768px) {
+    .container-custom {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}

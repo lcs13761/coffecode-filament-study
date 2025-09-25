@@ -28,17 +28,6 @@
     {{ $slot }}
 </main>
 
-<article
-    class="mt-10 pt-5 bg-cover bg-[url('https://www.cafecontrol.com.br/themes/cafeweb/assets/images/footer-bg.jpg')]">
-    <div class="text-center max-w-full py-5 m-auto block" style="width: 500px">
-        <h2 class="text-3xl font-black">Comece a controlar suas contas agora mesmo</h2>
-        <p class="mt-5 mb-10">É rápido, simples e gratuito!</p>
-        <a href="https://www.cafecontrol.com.br/cadastrar"
-           class="inline-block cursor-pointer px-10 py-4 text-lg shadow decoration-0 text-white font-bold rounded"
-           style="background: linear-gradient(to right,#42E695 0%,#3BB2B8 50%,#42E695 100%);">Quero
-            controlar</a>
-    </div>
-</article>
 
 <!--FOOTER-->
 @include('components.layouts.footer')
